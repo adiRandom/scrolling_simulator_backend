@@ -12,10 +12,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	println(os.Getenv("SCROLLING_SIMULATOR_API_PORT"))
 
 	engine := gin.Default()
 	loadRoutes(engine)
+	err = engine.Run(":" + os.Getenv("SCROLLING_SIMULATOR_API_PORT"))
+	if err != nil {
+		return
+	}
 }
 
 func loadRoutes(e *gin.Engine) {
