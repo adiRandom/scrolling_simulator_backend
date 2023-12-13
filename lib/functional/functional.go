@@ -1,7 +1,7 @@
 package functional
 
 import (
-	types "lib/helpers"
+	"backend_scrolling_simulator/lib"
 )
 
 type ReduceCb[T, R any] func(acc R, current T) R
@@ -18,7 +18,7 @@ func Reduce[T any, R any](s []T, fn ReduceCb[T, R], initialValue R) R {
 func Accumulate[T any](s []T, fn ReduceCb[T, T]) (T, error) {
 	var partial T
 	if len(s) == 0 {
-		return partial, types.Error{"Empty slice", ""}
+		return partial, lib.Error{Msg: "Empty slice"}
 	}
 	partial = (s)[0]
 	for i, el := range s {
