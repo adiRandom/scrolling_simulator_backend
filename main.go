@@ -23,4 +23,5 @@ func main() {
 
 func loadRoutes(e *gin.Engine) {
 	routes.LoadEngagementGroup(e)
+	routes.LoadAchievementRoutes(e)
 }

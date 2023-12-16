@@ -20,12 +20,7 @@ func GetDB() *gorm.DB {
 			panic("failed to connect database")
 		}
 
-		err = db.AutoMigrate(&models.Like{})
-		if err != nil {
-			return nil
-		}
-
-		err = db.AutoMigrate(&models.CrossPost{})
+		err = db.AutoMigrate(&models.Like{}, &models.CrossPost{}, &models.User{}, &models.Achievement{})
 		if err != nil {
 			return nil
 		}
