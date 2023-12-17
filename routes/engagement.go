@@ -2,6 +2,7 @@ package routes
 
 import (
 	"backend_scrolling_simulator/dtos"
+	"backend_scrolling_simulator/lib"
 	"backend_scrolling_simulator/lib/routes"
 	"backend_scrolling_simulator/repository/crossPostRepository"
 	"backend_scrolling_simulator/repository/likeRepository"
@@ -9,7 +10,7 @@ import (
 )
 
 func like(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[dtos.Like](ctx)
+	ctxWrapper, err := routes.GetContextWrapper[lib.None, dtos.Like](ctx)
 	if err != nil {
 		return
 	}
@@ -27,7 +28,7 @@ func like(ctx *gin.Context) {
 }
 
 func dislike(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[dtos.Like](ctx)
+	ctxWrapper, err := routes.GetContextWrapper[lib.None, dtos.Like](ctx)
 	if err != nil {
 		return
 	}
@@ -45,7 +46,7 @@ func dislike(ctx *gin.Context) {
 }
 
 func crossPost(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[dtos.CrossPost](ctx)
+	ctxWrapper, err := routes.GetContextWrapper[lib.None, dtos.CrossPost](ctx)
 	if err != nil {
 		return
 	}

@@ -6,10 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-func UnlockAchievement(userId uint, achievementId uint) error {
+func UnlockAchievement(UserID uint, achievementId uint) error {
 	db := repository.GetDB()
 	return db.Model(
-		models.User{Model: gorm.Model{ID: userId}},
+		models.User{Model: gorm.Model{ID: UserID}},
 	).Association("Achievements").Append(
 		&models.Achievement{Model: gorm.Model{ID: achievementId}},
 	)

@@ -7,16 +7,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type contextWrapper[T any] struct {
-	ctx  *gin.Context
-	user *models.User
-	body T
+type contextWrapper[Q, B any] struct {
+	ctx         *gin.Context
+	user        *models.User
+	body        B
+	queryParams Q
 }
 
-type GinContextWrapper[T any] interface {
+func (ctx *contextWrapper[Q, B]) GetQueryParams() Q {
+	return ctx.queryParams
+}
+
+type GinContextWrapper[Q, B any] interface {
 	ReturnErrorResponse(err error, statusCode int)
 	GetCurrentUser() models.User
-	GetBody() T
+	GetBody() B
+	GetQueryParams() Q
 }
 
 func getTokenFromHeader(ctx *gin.Context) string {
@@ -24,17 +30,17 @@ func getTokenFromHeader(ctx *gin.Context) string {
 	return header[7:]
 }
 
-func (ctx *contextWrapper[T]) GetCurrentUser() models.User {
+func (ctx *contextWrapper[Q, B]) GetCurrentUser() models.User {
 	return *ctx.user
 }
 
-func (ctx *contextWrapper[T]) ReturnErrorResponse(err error, statusCode int) {
+func (ctx *contextWrapper[Q, B]) ReturnErrorResponse(err error, statusCode int) {
 	if err != nil {
 		ctx.ctx.JSON(statusCode, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
 	}
 }
 
-func (ctx *contextWrapper[T]) GetBody() T {
+func (ctx *contextWrapper[Q, B]) GetBody() B {
 	return ctx.body
 }
 
@@ -42,15 +48,21 @@ func (ctx *contextWrapper[T]) GetBody() T {
 // This function is used to get the current user and the body of the request.
 // * It returns a contextWrapper that implements the GinContextWrapper interface.
 // * Any errors that occur during the process are handled by the contextWrapper, returning a JSON response with the error.
-func GetContextWrapper[T any](ctx *gin.Context) (GinContextWrapper[T], error) {
-	var body T
+func GetContextWrapper[Q, B any](ctx *gin.Context) (GinContextWrapper[Q, B], error) {
+	var body B
 	err := ctx.BindJSON(&body)
 	if err != nil {
 		ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
 		return nil, err
 	}
 
-	ctxWrapper := &contextWrapper[T]{ctx: ctx, body: body}
+	queryParams, err := getQueryParams[Q](ctx)
+	if err != nil {
+		ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
+		return nil, err
+	}
+
+	ctxWrapper := &contextWrapper[Q, B]{ctx: ctx, body: body, queryParams: *queryParams}
 
 	currentUser, err := user.GetCurrentUser(getTokenFromHeader(ctx))
 	if err != nil {
@@ -61,4 +73,14 @@ func GetContextWrapper[T any](ctx *gin.Context) (GinContextWrapper[T], error) {
 
 	ctxWrapper.user = &currentUser
 	return ctxWrapper, nil
+}
+
+func getQueryParams[Q any](ctx *gin.Context) (*Q, error) {
+	var queryParams Q
+	err := ctx.BindQuery(&queryParams)
+	if err != nil {
+		return nil, err
+	}
+
+	return &queryParams, nil
 }
