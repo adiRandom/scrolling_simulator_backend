@@ -50,10 +50,12 @@ func (ctx *contextWrapper[Q, B]) GetBody() B {
 // * Any errors that occur during the process are handled by the contextWrapper, returning a JSON response with the error.
 func GetContextWrapper[Q, B any](ctx *gin.Context) (GinContextWrapper[Q, B], error) {
 	var body B
-	err := ctx.BindJSON(&body)
-	if err != nil {
-		ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
-		return nil, err
+	if !lib.IsNone(body) {
+		err := ctx.BindJSON(&body)
+		if err != nil {
+			ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
+			return nil, err
+		}
 	}
 
 	queryParams, err := getQueryParams[Q](ctx)
@@ -77,9 +79,12 @@ func GetContextWrapper[Q, B any](ctx *gin.Context) (GinContextWrapper[Q, B], err
 
 func getQueryParams[Q any](ctx *gin.Context) (*Q, error) {
 	var queryParams Q
-	err := ctx.BindQuery(&queryParams)
-	if err != nil {
-		return nil, err
+
+	if !lib.IsNone(queryParams) {
+		err := ctx.BindQuery(&queryParams)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &queryParams, nil
