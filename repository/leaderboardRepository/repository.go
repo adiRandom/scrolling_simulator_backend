@@ -9,7 +9,7 @@ func GetLeaderboard(predicate models.LeaderboardTypePredicate) (*models.Leaderbo
 	db := repository.GetDB()
 
 	var leaderboardEntries []models.LeaderboardEntry
-	err := db.Where("entry_type = ?",
+	err := db.Where("timeframe = ?",
 		predicate.Timeframe).Order(predicate.LeaderboardType + " DESC").Find(&leaderboardEntries).Error
 
 	leaderboard := models.NewLeaderboard(leaderboardEntries, predicate)
