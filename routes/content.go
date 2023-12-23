@@ -24,7 +24,7 @@ func GetPosts(ctx *gin.Context) {
 		return
 	}
 
-	response := functional.Map(posts, func(post models.Post) dtos.Post { return post.ToDto() })
+	response := functional.Map(posts, func(post models.Post) dtos.Post { return dtos.NewPostFromModel(post) })
 
 	ctx.JSON(200, response)
 }
