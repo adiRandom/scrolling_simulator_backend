@@ -32,7 +32,7 @@ func getAchievements(ctx *gin.Context) {
 		response = append(response, dtos.NewAchievementFromModel(achievement, isUnlocked))
 	}
 
-	ctx.JSON(204, nil)
+	ctx.JSON(200, response)
 }
 
 func LoadAchievementRoutes(router *gin.Engine) {
