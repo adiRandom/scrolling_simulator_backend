@@ -24,9 +24,9 @@ func GetPosts(ctx *gin.Context) {
 		return
 	}
 
-	response := functional.Map(posts, func(post models.Post) dtos.Post { return dtos.NewPostFromModel(post) })
+	response := functional.Map(posts, func(post models.Post) dtos.Post { return post.ToDto() })
 
-	ctx.JSON(200, response)
+	ctxWrapper.ReturnJSON(200, response)
 }
 
 func LoadPostRoutes(engine *gin.Engine) {

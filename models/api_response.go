@@ -11,3 +11,7 @@ type ApiResponse[T any] struct {
 func NewErrorApiResponse(err lib.Error) ApiResponse[interface{}] {
 	return ApiResponse[interface{}]{false, err, nil}
 }
+
+func NewSuccessApiResponse[T any](data T) ApiResponse[T] {
+	return ApiResponse[T]{true, lib.Error{}, &data}
+}

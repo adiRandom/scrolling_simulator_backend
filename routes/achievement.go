@@ -29,10 +29,10 @@ func getAchievements(ctx *gin.Context) {
 			return el.ID == achievement.ID
 		})
 
-		response = append(response, dtos.NewAchievementFromModel(achievement, isUnlocked))
+		response = append(response, achievement.ToDto(isUnlocked))
 	}
 
-	ctx.JSON(200, response)
+	ctxWrapper.ReturnJSON(200, response)
 }
 
 func LoadAchievementRoutes(router *gin.Engine) {

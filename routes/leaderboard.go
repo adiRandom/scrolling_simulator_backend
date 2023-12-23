@@ -4,6 +4,7 @@ import (
 	"backend_scrolling_simulator/dtos"
 	"backend_scrolling_simulator/lib"
 	"backend_scrolling_simulator/lib/routes"
+	"backend_scrolling_simulator/models"
 	"backend_scrolling_simulator/repository/leaderboardRepository"
 	"github.com/gin-gonic/gin"
 )
@@ -16,13 +17,19 @@ func GetLeaderboard(ctx *gin.Context) {
 
 	getLeaderboardDto := ctxWrapper.GetQueryParams()
 
-	leaderboard, err := leaderboardRepository.GetLeaderboard(getLeaderboardDto.ToPredicate())
+	leaderboard, err := leaderboardRepository.GetLeaderboard(
+		*models.NewLeaderboardTypePredicate(
+			getLeaderboardDto.LeaderboardType,
+			getLeaderboardDto.Timeframe,
+		),
+	)
 	if err != nil {
+
 		ctxWrapper.ReturnErrorResponse(lib.Error{Msg: "Something went wrong!"}, 500)
 		return
 	}
 
-	ctx.JSON(200, leaderboard)
+	ctxWrapper.ReturnJSON(200, leaderboard.ToDto())
 }
 
 func LoadLeaderboardRoutes(e *gin.Engine) {

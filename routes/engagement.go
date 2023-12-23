@@ -24,7 +24,7 @@ func like(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(204, nil)
+	ctxWrapper.ReturnJSON(204, nil)
 }
 
 func dislike(ctx *gin.Context) {
@@ -42,7 +42,7 @@ func dislike(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(204, nil)
+	ctxWrapper.ReturnJSON(204, nil)
 }
 
 func crossPost(ctx *gin.Context) {
@@ -60,7 +60,7 @@ func crossPost(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(204, nil)
+	ctxWrapper.ReturnJSON(204, nil)
 }
 
 func LoadEngagementGroup(e *gin.Engine) {

@@ -23,6 +23,7 @@ type GinContextWrapper[Q, B any] interface {
 	GetCurrentUser() models.User
 	GetBody() B
 	GetQueryParams() Q
+	ReturnJSON(statusCode int, data interface{})
 }
 
 func getTokenFromHeader(ctx *gin.Context) string {
@@ -88,4 +89,8 @@ func getQueryParams[Q any](ctx *gin.Context) (*Q, error) {
 	}
 
 	return &queryParams, nil
+}
+
+func (ctx *contextWrapper[Q, B]) ReturnJSON(statusCode int, data interface{}) {
+	ctx.ctx.JSON(statusCode, models.NewSuccessApiResponse(data))
 }

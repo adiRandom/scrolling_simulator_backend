@@ -128,3 +128,38 @@ func Reverse[T any](s []T) []T {
 
 	return reversed
 }
+
+func Zip[T any, S any](t []T, s []S) []lib.Pair[T, S] {
+	var zipped []lib.Pair[T, S]
+	for i, el := range t {
+		zipped = append(zipped, lib.Pair[T, S]{First: el, Second: s[i]})
+	}
+
+	return zipped
+}
+
+// Associate associates two slices by a predicate function.
+// The order of the final map is the order of the first slice.
+func Associate[T comparable, S any](t []T, s []S, fn func(T, S) bool) map[T]S {
+	associated := make(map[T]S)
+	for i, tEl := range t {
+		match := Find(s, func(sEl S) bool {
+			return fn(tEl, sEl)
+		})
+
+		if match != nil {
+			associated[tEl] = s[i]
+		}
+	}
+
+	return associated
+}
+
+func Values[K comparable, V any](m map[K]V) []V {
+	var values []V
+	for _, v := range m {
+		values = append(values, v)
+	}
+
+	return values
+}
