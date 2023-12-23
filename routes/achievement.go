@@ -23,7 +23,7 @@ func getAchievements(ctx *gin.Context) {
 		return
 	}
 
-	response := make([]dtos.Achievement, len(achievements))
+	response := make([]dtos.Achievement, 0)
 	for _, achievement := range achievements {
 		isUnlocked := lib.ContainsFunc(user.Achievements, func(el *models.Achievement) bool {
 			return el.ID == achievement.ID
