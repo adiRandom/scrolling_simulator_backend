@@ -18,7 +18,7 @@ func GetLeaderboard(ctx *gin.Context) {
 
 	leaderboard, err := leaderboardRepository.GetLeaderboard(getLeaderboardDto.ToPredicate())
 	if err != nil {
-		ctxWrapper.ReturnErrorResponse(err, 500)
+		ctxWrapper.ReturnErrorResponse(lib.Error{Msg: "Something went wrong!"}, 500)
 		return
 	}
 
