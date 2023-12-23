@@ -28,3 +28,10 @@ func GetPosts(ctx *gin.Context) {
 
 	ctx.JSON(200, response)
 }
+
+func LoadPostRoutes(engine *gin.Engine) {
+	postGroup := engine.Group("/posts")
+	{
+		postGroup.GET("", GetPosts)
+	}
+}

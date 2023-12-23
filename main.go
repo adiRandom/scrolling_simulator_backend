@@ -25,4 +25,5 @@ func loadRoutes(e *gin.Engine) {
 	routes.LoadEngagementGroup(e)
 	routes.LoadAchievementRoutes(e)
 	routes.LoadLeaderboardRoutes(e)
+	routes.LoadPostRoutes(e)
 }

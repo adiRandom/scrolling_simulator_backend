@@ -29,7 +29,7 @@ func getAchievements(ctx *gin.Context) {
 			return el.ID == achievement.ID
 		})
 
-		response = append(response, achievement.ToDto(isUnlocked))
+		response = append(response, dtos.NewAchievementFromModel(achievement, isUnlocked))
 	}
 
 	ctx.JSON(204, nil)
