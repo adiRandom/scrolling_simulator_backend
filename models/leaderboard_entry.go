@@ -10,3 +10,7 @@ type LeaderboardEntry struct {
 	Distance  uint   `gorm:"not null"`
 	User      User
 }
+
+func (_ LeaderboardEntry) TableName() string {
+	return "leaderboard"
+}
