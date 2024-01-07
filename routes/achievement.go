@@ -36,5 +36,5 @@ func getAchievements(ctx *gin.Context) {
 }
 
 func LoadAchievementRoutes(router *gin.Engine) {
-	router.GET("/achievements", getAchievements)
+	router.GET(BasePath+"/achievements", getAchievements)
 }

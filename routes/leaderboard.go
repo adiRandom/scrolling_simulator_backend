@@ -33,5 +33,5 @@ func GetLeaderboard(ctx *gin.Context) {
 }
 
 func LoadLeaderboardRoutes(e *gin.Engine) {
-	e.GET("/leaderboard", GetLeaderboard)
+	e.GET(BasePath+"/leaderboard", GetLeaderboard)
 }

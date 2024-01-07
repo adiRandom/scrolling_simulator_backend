@@ -64,7 +64,7 @@ func crossPost(ctx *gin.Context) {
 }
 
 func LoadEngagementGroup(e *gin.Engine) {
-	g := e.Group("/engagement")
+	g := e.Group(BasePath + "/engagement")
 
 	g.POST("/like", like)
 	g.POST("/dislike", dislike)

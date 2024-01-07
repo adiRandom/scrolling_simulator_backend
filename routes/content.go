@@ -30,7 +30,7 @@ func GetPosts(ctx *gin.Context) {
 }
 
 func LoadPostRoutes(engine *gin.Engine) {
-	postGroup := engine.Group("/posts")
+	postGroup := engine.Group(BasePath + "/posts")
 	{
 		postGroup.GET("", GetPosts)
 	}
