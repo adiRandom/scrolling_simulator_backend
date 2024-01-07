@@ -17,14 +17,14 @@ func GetLeaderboard(ctx *gin.Context) {
 
 	getLeaderboardDto := ctxWrapper.GetQueryParams()
 
-	leaderboard, qError := leaderboardRepository.GetLeaderboard(
+	leaderboard, err := leaderboardRepository.GetLeaderboard(
 		*models.NewLeaderboardTypePredicate(
 			getLeaderboardDto.LeaderboardType,
 			getLeaderboardDto.Timeframe,
 		),
 	)
-	if qError != "" {
-		println(qError)
+	if err != nil {
+		println(err)
 		ctxWrapper.ReturnErrorResponse(lib.Error{Msg: "Something went wrong!"}, 500)
 		return
 	}
