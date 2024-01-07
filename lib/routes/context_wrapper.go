@@ -4,6 +4,7 @@ import (
 	"backend_scrolling_simulator/lib"
 	"backend_scrolling_simulator/models"
 	"backend_scrolling_simulator/services/user"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -54,6 +55,7 @@ func GetContextWrapper[Q, B any](ctx *gin.Context) (GinContextWrapper[Q, B], err
 	if !lib.IsNone(body) {
 		err := ctx.BindJSON(&body)
 		if err != nil {
+			fmt.Print(err.Error())
 			ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
 			return nil, err
 		}
@@ -61,6 +63,7 @@ func GetContextWrapper[Q, B any](ctx *gin.Context) (GinContextWrapper[Q, B], err
 
 	queryParams, err := getQueryParams[Q](ctx)
 	if err != nil {
+		fmt.Print(err.Error())
 		ctx.JSON(400, models.NewErrorApiResponse(lib.Error{Msg: err.Error(), Reason: ""}))
 		return nil, err
 	}
