@@ -24,7 +24,7 @@ func GetLeaderboard(ctx *gin.Context) {
 		),
 	)
 	if qError != "" {
-
+		println(qError)
 		ctxWrapper.ReturnErrorResponse(lib.Error{Msg: "Something went wrong!"}, 500)
 		return
 	}
