@@ -6,8 +6,8 @@ import (
 )
 
 type Error struct {
-	Msg    string
-	Reason string
+	Msg    string `json:"message"`
+	Reason string `json:"reason"`
 }
 
 func (e Error) Error() string {
