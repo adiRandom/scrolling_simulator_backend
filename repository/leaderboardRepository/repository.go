@@ -12,7 +12,9 @@ func GetLeaderboard(predicate models.LeaderboardTypePredicate) (*models.Leaderbo
 	var leaderboardEntries []models.LeaderboardEntry
 	err := db.Joins("JOIN users ON users.id = leaderboard.user_id").Where(&models.LeaderboardEntry{Timeframe: predicate.Timeframe}).Order(predicate.LeaderboardType + " DESC").Find(&leaderboardEntries).Error
 
-	fmt.Printf("%v", leaderboardEntries)
+	for i, entry := range leaderboardEntries {
+		fmt.Printf("Entry %d: %v\n", i, entry.User)
+	}
 
 	leaderboard := models.NewLeaderboard(leaderboardEntries, predicate)
 	return leaderboard, err
