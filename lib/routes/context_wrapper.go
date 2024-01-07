@@ -28,6 +28,8 @@ type GinContextWrapper[Q, B any] interface {
 }
 
 func getTokenFromHeader(ctx *gin.Context) string {
+	// TODO: Get token
+	return ""
 	header := ctx.GetHeader("Authorization")
 	return header[7:]
 }
