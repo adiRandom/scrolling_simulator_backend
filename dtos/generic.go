@@ -1,5 +1,5 @@
 package dtos
 
 type Pagination struct {
-	Limit int
+	Limit int `form:"limit" binding:"required"`
 }

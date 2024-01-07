@@ -3,9 +3,9 @@ package models
 import "backend_scrolling_simulator/lib"
 
 type ApiResponse[T any] struct {
-	Success bool
-	Error   lib.Error
-	Data    *T
+	Success bool      `json:"success"`
+	Error   lib.Error `json:"error"`
+	Data    *T        `json:"data"`
 }
 
 func NewErrorApiResponse(err lib.Error) ApiResponse[interface{}] {
