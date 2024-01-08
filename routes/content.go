@@ -25,8 +25,9 @@ func GetPosts(ctx *gin.Context) {
 	}
 
 	response := functional.Map(posts, func(post models.Post) dtos.Post { return post.ToDto() })
+	paginatedResponse := dtos.NewInfinitePaginatedResponse[dtos.Post](response)
 
-	ctxWrapper.ReturnJSON(200, response)
+	ctxWrapper.ReturnJSON(200, paginatedResponse)
 }
 
 func LoadPostRoutes(engine *gin.Engine) {
