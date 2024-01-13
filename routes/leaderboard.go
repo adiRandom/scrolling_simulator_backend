@@ -10,7 +10,7 @@ import (
 )
 
 func GetLeaderboard(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[dtos.LeaderboardType, lib.None](ctx)
+	ctxWrapper, err := routes.GetCtxWithQuery[dtos.LeaderboardType](ctx)
 	if err != nil {
 		return
 	}

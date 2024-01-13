@@ -10,7 +10,7 @@ import (
 )
 
 func getAchievements(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[lib.None, lib.None](ctx)
+	ctxWrapper, err := routes.GetEmptyCtx(ctx)
 	if err != nil {
 		return
 	}

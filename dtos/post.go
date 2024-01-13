@@ -14,3 +14,12 @@ type Topic struct {
 	Name  string `json:"name"`
 	Emoji string `json:"emoji"`
 }
+
+type PostIdPathParam struct {
+	PostId uint `json:"post_id"`
+}
+
+type ReactResponse struct {
+	Ratio float64 `json:"ratio"`
+	Text  string  `json:"text"`
+}

@@ -2,7 +2,6 @@ package routes
 
 import (
 	"backend_scrolling_simulator/dtos"
-	"backend_scrolling_simulator/lib"
 	"backend_scrolling_simulator/lib/functional"
 	"backend_scrolling_simulator/lib/routes"
 	"backend_scrolling_simulator/models"
@@ -11,7 +10,7 @@ import (
 )
 
 func GetPosts(ctx *gin.Context) {
-	ctxWrapper, err := routes.GetContextWrapper[dtos.Pagination, lib.None](ctx)
+	ctxWrapper, err := routes.GetCtxWithQuery[dtos.Pagination](ctx)
 	if err != nil {
 		return
 	}

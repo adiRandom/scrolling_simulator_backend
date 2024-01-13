@@ -22,3 +22,13 @@ func GetRandomPostsUnseenBy(userId uint, count int) ([]models.Post, error) {
 		Find(&posts).Error
 	return posts, err
 }
+
+func PostExists(postId uint) (bool, error) {
+	db := repository.GetDB()
+	var count int64
+	err := db.Model(&models.Post{}).
+		Where("id = ?", postId).
+		Count(&count).
+		Error
+	return count > 0, err
+}

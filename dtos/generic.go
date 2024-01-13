@@ -16,3 +16,12 @@ type PaginatedResponse[T any] struct {
 func NewInfinitePaginatedResponse[T any](data []T) PaginatedResponse[T] {
 	return PaginatedResponse[T]{Page: 0, PerPage: len(data), Total: len(data) * 2, TotalPages: 1, Data: data}
 }
+
+type Error struct {
+	Msg  string `json:"message"`
+	Code int    `json:"code"`
+}
+
+func (e Error) Error() string {
+	return e.Msg
+}

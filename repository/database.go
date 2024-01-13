@@ -29,9 +29,9 @@ func GetDB() *gorm.DB {
 		db, err = gorm.Open(postgres.New(postgres.Config{
 			DSN:                  os.Getenv("SCROLLING_SIMULATOR_API_DB_DSN"),
 			PreferSimpleProtocol: true, // disables implicit prepared statement usage
-		}), &gorm.Config{
+		}), /*, &gorm.Config{
 			Logger: gormLogger,
-		})
+		}*/)
 		if err != nil {
 			panic("failed to connect database")
 		}
@@ -44,6 +44,7 @@ func GetDB() *gorm.DB {
 			&models.Post{},
 			&models.Tag{},
 			&models.Topic{},
+			&models.React{},
 		)
 		if err != nil {
 			return nil
