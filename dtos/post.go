@@ -16,7 +16,7 @@ type Topic struct {
 }
 
 type PostIdPathParam struct {
-	PostId uint `json:"post_id"`
+	PostId uint `uri:"postId" binding:"required" json:"post_id"`
 }
 
 type ReactResponse struct {
