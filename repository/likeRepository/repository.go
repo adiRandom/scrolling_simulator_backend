@@ -35,7 +35,7 @@ func GetLikeDislikeRatio(postId uint) (float64, error) {
 func GetReaction(ratio float64) (models.ReactText, error) {
 	db := repository.GetDB()
 	var react models.ReactText
-	err := db.Model(&react).
+	err := db.Model(&models.ReactText{}).
 		Where("ratio = ?",
 			ratio,
 		).
@@ -43,5 +43,7 @@ func GetReaction(ratio float64) (models.ReactText, error) {
 		Limit(1).
 		Find(&react).
 		Error
+
+	println(react.Text)
 	return react, err
 }
