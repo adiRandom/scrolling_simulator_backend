@@ -36,7 +36,7 @@ func GetReaction(ratio float64) (models.ReactText, error) {
 	db := repository.GetDB()
 	var react models.ReactText
 	err := db.Model(&react).
-		Where(" ratio = ?",
+		Where("ratio = ?",
 			ratio,
 		).
 		Order("RANDOM()").

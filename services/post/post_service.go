@@ -44,5 +44,5 @@ func GetReaction(postId uint) (models.ReactText, error) {
 		return models.ReactText{}, err
 	}
 
-	return likeRepository.GetReaction(postId, likeDislikeRatio)
+	return likeRepository.GetReaction(likeDislikeRatio)
 }
