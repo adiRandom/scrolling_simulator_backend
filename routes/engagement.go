@@ -9,6 +9,7 @@ import (
 )
 
 func like(ctx *gin.Context) {
+	println("like")
 	ctxWrapper, err := routes.GetCtxWithPath[dtos.PostIdPathParam](ctx)
 	if err != nil {
 		return
