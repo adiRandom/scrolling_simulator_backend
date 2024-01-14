@@ -40,6 +40,7 @@ func clampLikeDislikeRatio(postId uint) (float64, error) {
 
 func GetReaction(postId uint) (models.ReactText, error) {
 	likeDislikeRatio, err := clampLikeDislikeRatio(postId)
+	println(err.Error())
 	if err != nil {
 		return models.ReactText{}, err
 	}
