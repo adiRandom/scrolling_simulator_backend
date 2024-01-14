@@ -40,7 +40,6 @@ func GetReaction(ratio float64) (models.ReactText, error) {
 			ratio,
 		).
 		Order("RANDOM()").
-		Limit(1).
 		First(&react).
 		Error
 
