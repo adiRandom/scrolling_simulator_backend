@@ -32,12 +32,11 @@ func GetLikeDislikeRatio(postId uint) (float64, error) {
 	return ratio, err
 }
 
-func GetReaction(postId uint, ratio float64) (models.ReactText, error) {
+func GetReaction(ratio float64) (models.ReactText, error) {
 	db := repository.GetDB()
 	var react models.ReactText
 	err := db.Model(&react).
-		Where("post_id = ? AND ratio = ?",
-			postId,
+		Where(" ratio = ?",
 			ratio,
 		).
 		Order("RANDOM()").
