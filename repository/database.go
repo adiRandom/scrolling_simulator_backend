@@ -44,7 +44,7 @@ func GetDB() *gorm.DB {
 			&models.Post{},
 			&models.Tag{},
 			&models.Topic{},
-			&models.React{},
+			&models.ReactText{},
 		)
 		if err != nil {
 			return nil

@@ -38,10 +38,10 @@ func clampLikeDislikeRatio(postId uint) (float64, error) {
 	}
 }
 
-func GetReaction(postId uint) (models.React, error) {
+func GetReaction(postId uint) (models.ReactText, error) {
 	likeDislikeRatio, err := clampLikeDislikeRatio(postId)
 	if err != nil {
-		return models.React{}, err
+		return models.ReactText{}, err
 	}
 
 	return likeRepository.GetReaction(postId, likeDislikeRatio)

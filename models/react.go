@@ -5,13 +5,13 @@ import (
 	"gorm.io/gorm"
 )
 
-type React struct {
+type ReactText struct {
 	gorm.Model
 	Ratio float64 `gorm:"not null"`
 	Text  string  `gorm:"not null"`
 }
 
-func (r *React) ToDto() dtos.ReactResponse {
+func (r *ReactText) ToDto() dtos.ReactResponse {
 	return dtos.ReactResponse{
 		Ratio: r.Ratio,
 		Text:  r.Text,
