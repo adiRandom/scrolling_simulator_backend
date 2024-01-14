@@ -30,7 +30,7 @@ func clampLikeDislikeRatio(postId uint) (float64, error) {
 	case ratio < 3:
 		return 2, nil
 
-	case ratio > 3:
+	case ratio >= 3:
 		return 3, nil
 
 	default:
